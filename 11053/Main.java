@@ -18,13 +18,18 @@ class Main{
 
         int sol = 1;
         for(int i=1;i<=N;i++){
-            dp[i] = 1;
-            for(int j =1;j<=i;j++){
-                if(arr[i] > arr[j]){
-                    dp[i] = Math.max(dp[i],dp[j]+1);
-                }
-            }
-            sol = Math.max(sol,dp[i]);
+           int min = 0;
+           for(int j =1;j<=i;j++){
+               if(arr[i] > arr[j]){
+                   if(min < dp[j]){
+                       min = dp[j];
+                   }
+               }
+           }
+           dp[i] = min+1;
+           if(sol < dp[i]){
+               sol = dp[i];
+           }
         }
         System.out.println(sol);
     }
