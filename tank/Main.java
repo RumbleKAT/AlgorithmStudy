@@ -72,7 +72,18 @@ class Main{
             //     Node current = yAxisArr[i];
             //     Arrays.binarySearch(, key)
             // }
+            ArrayList <Long> alist = new ArrayList<>();
 
+            for(int i = yAxisArr.length-2;i>=1;i--){
+                alist.add(yAxisArr[i+1].value);//long
+
+                System.out.println("---------------------");
+                System.out.println(yAxisArr[i+1]);
+                
+                int xidx = Arrays.binarySearch(xAxisArr,1,xAxisArr.length, yAxisArr[i+1]);
+                System.out.println(xidx);
+
+            }
         }
     }
 
@@ -109,15 +120,23 @@ class SegmentTree{
 }
 
 
-class Node{
+class Node implements Comparable<Node>{
     public long x = -1;
     public long y = -1;
     public long value = -1;
+    public boolean xAxis = false;
 
     Node(int x, int y, int value){
         this.x = x;
         this.y = y;
         this.value = value;
+    }
+
+    Node(int x, int y, int value, boolean xAxis){
+        this.x = x;
+        this.y = y;
+        this.value = value;
+        this.xAxis = xAxis;
     }
     //각 좌표 점 대로 정렬
     public String toString(){
@@ -125,6 +144,23 @@ class Node{
             return "\n";
         }else{
             return value + " ";
+        }
+    }
+
+    @Override
+    public int compareTo(Node comp){
+        if(this.xAxis){
+            if(this.x >= comp.x){
+                return 1;
+            }else{
+                return -1;
+            } 
+        }else{
+            if(this.y >= this.y){
+                return 1;
+            }else{
+                return -1;
+            }
         }
     }
 }

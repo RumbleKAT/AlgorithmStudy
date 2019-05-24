@@ -41,7 +41,6 @@ class Main{
         boolean check = true;
         int std = map[row][col];
 
-
         for(int i = row;i<row+n;i++){
             for(int j=col;j<col+n;j++){
                 if(std != map[i][j]){
