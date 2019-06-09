@@ -29,9 +29,48 @@ class Main{
         answer = new int [][] {{0,0,0,0},{0,1,2,3},{0,8,0,4},{0,7,6,5}};
         Node current = new Node(map, answer, 0);
         
+        PriorityQueue <Node> pq = new PriorityQueue<>();
+        pq.add(current);
+
+        while(!pq.isEmpty()){
+            Node temp = pq.poll();
+            //방문 했었던 애들을 가지고 있을 필요가 있을까?
+            int zero_y = -1;
+            int zero_x = -1;
+
+            //search x ,y
+            
+            Outter : for(int i = 1;i<=3;i++){
+                for(int j =1;j<=3;j++){
+                    if(temp.map[i][j] == 0){
+                        zero_x = j;
+                        zero_y = i;
+                        break Outter;
+                    }
+                }
+            }
+            
+            System.out.println(zero_y + " " +  zero_x);
+            System.out.println();
+            
+            for(int i =0;i<dir.length;i++){
+                int next_y = zero_y + dir[i][0];
+                int next_x = zero_x + dir[i][1];
+
+                if(rangeCheck(next_y, next_x)){
+                    System.out.println(temp.map[next_y][next_x]);
+                }
+            }
+
+            
+        }
 
 
+    }
 
+    static void swap(int [][] param ,int x, int y, int temp, int x1, int y1, int temp1){
+        param[y][x] = temp1;
+        param[y1][x1] = temp;
     }
 
     static void printMap(int [][] temp){
@@ -52,7 +91,7 @@ class Main{
 
 }
 
-class Node{
+class Node implements Comparable<Node>{
     static int [][] map;
     static int [][] answer;
 
@@ -69,7 +108,7 @@ class Node{
         this.f = moves;
         this.h = getH();
         this.result = this.f + this.h;
-        
+
         System.out.println(this.f + " " + this.h);
     }
 
@@ -108,6 +147,11 @@ class Node{
             }System.out.println();
         }
         System.out.println();
+    }
+
+    @Override
+    public int compareTo(Node target) {
+        return this.result <= target.result ? 1 : - 1;
     }
 
 }
