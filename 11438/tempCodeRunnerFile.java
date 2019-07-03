@@ -3,6 +3,32 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+ 
+ 
+    static int lca(int x, int y) {
+        if (d[x] > d[y]) {
+            int temp = d[x];
+            d[x] = d[y];
+            d[y] = temp;
+        }
+
+ 
+        for (int i = 20; i >= 0; i--) {
+            if (d[y] - d[x] >= (1 << i))
+                y = p[y][i];
+        }
+        
+        if (x == y) return x;
+ 
+        for (int i = 20; i >= 0; i--) {
+            if (p[x][i] != p[y][i]) {
+                x = p[x][i];
+                y = p[y][i];
+            }
+        }
+        return p[x][0];
+ 
+    }
 
     static int N,M;
     static int MAX = 1000001;
@@ -14,7 +40,7 @@ public class Main {
     static ArrayList<Integer>[] arr;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
-        //System.setIn(new FileInputStream("./sample.txt"));
+        System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token;
         N = Integer.parseInt(br.readLine());
@@ -36,7 +62,7 @@ public class Main {
 
         M = Integer.parseInt(br.readLine());
 
-        dfs(1,0);//dfs 한번 돌리고
+        dfs(1,0);
         
         // for(int i = 0;i<=N+1;i++){
         //     System.out.print(p[i][0] + " ");
@@ -63,8 +89,8 @@ public class Main {
     }
 
     static void dfs(int here, int depth) {
-        visited[here] = true;
         d[here] = depth;
+        visited[here] = true;
         for(int next : arr[here]){
             if(visited[next]){
                 continue;
@@ -81,32 +107,6 @@ public class Main {
             }
         }
     }
-
-    static int lca(int x, int y) {
-        if (d[x] > d[y]) {
-            int temp = x;
-            x = y;
-            y = temp;
-        }
-
- 
-        for (int i = 20; i >= 0; i--) {
-            if (d[y] - d[x] >= (1 << i))
-                y = p[y][i];
-        }
-        
-        if (x == y) return x;
- 
-        for (int i = 20; i >= 0; i--) {
-            if (p[x][i] != p[y][i]) {
-                x = p[x][i];
-                y = p[y][i];
-            }
-        }
-        return p[x][0];
- 
-    }
-
 
 
 }
