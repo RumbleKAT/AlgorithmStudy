@@ -13,51 +13,74 @@ class Main{
     public static void main(String [] args) throws Exception{
         System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer token = new StringTokenizer(br.readLine());
-        
-        N = Integer.parseInt(token.nextToken());
-        M = Integer.parseInt(token.nextToken());
+        StringTokenizer token;
 
-        arr = new Node [6000];
-        adj = new long[501];
+        int tc = Integer.parseInt(br.readLine());
 
-        Arrays.fill(adj,INF);//아직 접근을 안했기 때문에 무한대로 취급
+        for(int t= 1;t<=tc;t++){
 
-        for(int i =0;i<M;i++){
             token = new StringTokenizer(br.readLine());
-            int s = Integer.parseInt(token.nextToken());
-            int e = Integer.parseInt(token.nextToken());
-            int v = Integer.parseInt(token.nextToken());
 
-            arr[i] = new Node(s,e,v);
-        }
+            N = Integer.parseInt(token.nextToken());
+            M = Integer.parseInt(token.nextToken());
+            int W = Integer.parseInt(token.nextToken());
 
-        adj[1] = 0;
+            arr = new Node [N+1];
+            adj = new long[N+1];
 
-        boolean negative_cycle = false;
+            Arrays.fill(adj,INF);//아직 접근을 안했기 때문에 무한대로 취급
 
-        for(int i = 0;i<N; i++){
-            for(int j = 0; j<M;j++){
-                int start = arr[j].start;
-                int end = arr[j].end;
-                long value = arr[j].value;
+            for(int i =0;i<M;i++){
+                token = new StringTokenizer(br.readLine());
+                
+                int s = Integer.parseInt(token.nextToken());
+                int e = Integer.parseInt(token.nextToken());
+                int v = Integer.parseInt(token.nextToken());
 
-                if(adj[start] != INF && adj[end] > adj[start] + value){
-                    adj[end] = adj[start] + value;
-                    if(i == N-1){
-                        negative_cycle = true;
-                    } 
+               // System.out.println(s + " "+ e + " " + v);
+                arr[i] = new Node(s,e,v);
+            }
+
+            for(int i =0;i<W;i++){
+                token = new StringTokenizer(br.readLine());
+                
+                int s = Integer.parseInt(token.nextToken());
+                int e = Integer.parseInt(token.nextToken());
+                int v = Integer.parseInt(token.nextToken());
+
+               // System.out.println(s + " "+ e + " " + v);
+
+                arr[i] = new Node(s,e,-v);
+            }
+
+            adj[1] = 0;
+
+            boolean negative_cycle = false;
+
+            for(int i = 0;i<N; i++){
+                for(int j = 0; j<M;j++){
+                    int start = arr[j].start;
+                    int end = arr[j].end;
+                    long value = arr[j].value;
+
+                    if(adj[start] == INF) continue;
+                    if(adj[end] > adj[start] + value){
+                        adj[end] = adj[start] + value;
+                        if(i == N-1){
+                            negative_cycle = true;
+                        }
+                    }
                 }
             }
-        }
-
-        if(negative_cycle){
-            System.out.println(-1);
-        }else{
-            for(int i = 2;i<=N;i++){
-                System.out.printf("%d\n", adj[i] == Integer.MAX_VALUE ? -1 : adj[i]);
+            System.out.println(Arrays.toString(adj));
+            
+            if(negative_cycle){
+                System.out.println("YES");
+            }else{
+                System.out.println("NO");
             }
         }
+        
     }
     
 }

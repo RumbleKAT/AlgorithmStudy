@@ -14,7 +14,7 @@ public class Main {
     static ArrayList<Integer>[] arr;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
-        //System.setIn(new FileInputStream("./sample.txt"));
+        System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token;
         N = Integer.parseInt(br.readLine());
@@ -82,31 +82,30 @@ public class Main {
         }
     }
 
-    static int lca(int x, int y) {
-        if (d[x] > d[y]) {
-            int temp = x;
-            x = y;
-            y = temp;
+    static int lca(int a, int b){
+        if(d[a] > d[b]){
+            int tmp = a;
+            a = b;
+            b = tmp;
         }
-
- 
-        for (int i = 20; i >= 0; i--) {
-            if (d[y] - d[x] >= (1 << i))
-                y = p[y][i];
-        }
-        
-        if (x == y) return x;
- 
-        for (int i = 20; i >= 0; i--) {
-            if (p[x][i] != p[y][i]) {
-                x = p[x][i];
-                y = p[y][i];
+    
+        for(int n=20;n>=0;n--){
+            if(d[b]-d[a] >= (1<<n)){
+                b = p[b][n];
             }
         }
-        return p[x][0];
- 
+    
+        if(a == b) return a;
+    
+        for(int n=20;n>=0;n--){
+            if(p[a][n] != p[b][n]){
+                a = p[a][n];
+                b = p[b][n];
+            }
+        }
+    
+        return p[a][0];
     }
-
 
 
 }
