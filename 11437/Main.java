@@ -3,6 +3,88 @@ import java.io.*;
 
 class Main{
 
+<<<<<<< HEAD
+    static ArrayList<Integer>[] adj;
+    static int [][] parent;
+    static int [] depth;
+    static int N, Q;
+
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer token;
+        N = Integer.parseInt(br.readLine());
+
+        adj = new ArrayList[N+1];
+        parent = new int[18][N+1];
+        depth = new int [N+1];
+
+        Arrays.fill(depth, -1);
+        for(int i=0;i<adj.length;i++){
+            adj[i] = new ArrayList<>();
+        }
+
+        for(int i = 2; i<=N;i++){
+            token = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(token.nextToken());
+            int b = Integer.parseInt(token.nextToken());
+            
+            adj[a].add(b);
+            adj[b].add(a);
+        }
+
+        Queue<Integer>que = new LinkedList<>();
+        que.offer(1);
+        depth[1] = 0;
+        parent[0][1] = 1;
+
+        while(!que.isEmpty()){
+            int cur = que.poll();
+            for(int child : adj[cur]){
+                if(depth[child] == -1){
+                    depth[child] = depth[cur] + 1;
+                    que.offer(child);
+                }
+            }
+        }
+        
+        for(int k=1;k<18;k++){
+            for(int n = 2; n<=N;n++){
+                parent[k][n] = parent[k-1][parent[k-1][n]];
+            }
+        }
+
+        Q = Integer.parseInt(br.readLine());
+        
+        for(int i = 1;i<=Q;i++){
+            token = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(token.nextToken());
+            int b = Integer.parseInt(token.nextToken());
+        
+            if(depth[a] > depth[b]){
+                int temp = a;
+                a = b;
+                b = temp;
+            }
+
+            for(int k = 17;k>=0 && a != b; k--){
+                if(depth[a] <= depth[parent[k][b]]) b = parent[k][b];
+            }
+
+            for(int k = 17;k>=0 && a != b; k--){
+                if(parent[k][a] != parent[k][b]){
+                    a = parent[k][a];
+                    b = parent[k][b];
+                }
+            }
+
+            if( a != b) System.out.print(parent[0][a] + " ");
+            else System.out.print(a + " ");
+        }
+        System.out.println();
+
+    
+    }
+=======
 	static ArrayList <Integer> [] arr;
     static int MAX = 1000001;
     static int MD = 22;
@@ -92,4 +174,5 @@ class Main{
 
 		return parent[a][0];
 	}
+>>>>>>> c87f7179b8725236b8e575a7d24d4a6dc443ae05
 }

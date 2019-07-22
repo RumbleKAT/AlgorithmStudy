@@ -19,7 +19,6 @@ class Main{
         }
 
         System.out.println(histogram(1,N));
-
     }
 
    

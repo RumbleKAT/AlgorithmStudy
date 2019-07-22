@@ -35,16 +35,16 @@ class Main{
         pq.add(current);
         vlist.add(current);
 
-        
+
         printMap(current.map);
         System.out.println();
 
         while(!pq.isEmpty()){
             Node temp = pq.poll();
 
-            System.out.println();
-            printMap(temp.answer);
-            System.out.println();
+           // System.out.println();
+           // printMap(temp.answer);
+           // System.out.println();
             //방문 했었던 애들을 가지고 있을 필요가 있을까?
 
             if(ansCheck(temp.map, temp.answer)){
@@ -72,7 +72,7 @@ class Main{
                 int next_x = zero_x + dir[i][1];
 
                 if(rangeCheck(next_y, next_x)){
-                    System.out.println();
+                    //System.out.println();
                     int [][] nextMap = new int [4][4];
 
                     nextMap = copy(temp.map);
@@ -80,11 +80,16 @@ class Main{
 
                     Node next = new Node(nextMap, temp.answer, temp.f+1);
                     
-                    if(vListCheck(next.map)){
-                        System.out.println("방문 안한 노드");
-                        printMap(next.map);
-                        pq.add(next);
-                        vlist.add(next);
+                    if(!vListCheck(nextMap)){
+                       // System.out.println("방문 안한 노드");
+                       // printMap(nextMap);
+
+                        if(ansCheck(nextMap, temp.answer)){
+                            System.out.println("!!");
+                        }else{
+                            pq.add(next);
+                            vlist.add(next);
+                        }
                     }
                 }
             }
@@ -104,7 +109,9 @@ class Main{
             }
         }
         if(cnt == 9){
+           
             result = true;
+            return result;
         }
 
         return result;
@@ -114,6 +121,8 @@ class Main{
         boolean result = false;
         
         for(Node cur : vlist){
+            printMap(cur.map);
+            System.out.println();
             int count = 0;
             for(int i =1;i<=3;i++){
                 for(int j=1;j<=3;j++){
