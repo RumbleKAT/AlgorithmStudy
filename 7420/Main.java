@@ -81,9 +81,9 @@ class Main{
             newPoints[M] = newPoints[i];
             newPoints[i] = tmp;
         }
-//        System.out.println("M : " + M);
+       System.out.println("M : " + M);
 
-        //showA(M);        
+        showA(M);        
 
         //볼록껍질 다구함
         double ans = 0;

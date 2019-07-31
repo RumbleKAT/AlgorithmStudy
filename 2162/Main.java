@@ -14,32 +14,31 @@ class Main{
         return 0;
     }
     static boolean cross_line(Line l1, Line l2){
-        long line1 = ccw(l1.x1, l1.y1, l1.x2, l1.y2, l2.x1, l2.y1) * ccw(l1.x1, l1.y1, l1.x2, l1.y2, l2.x2, l2.y2);
-        long line2 = ccw(l2.x1, l2.y1, l2.x2, l2.y2, l1.x1, l1.y1) * ccw(l2.x1, l2.y1, l2.x2, l2.y2, l1.x2, l1.y2);
-        
-        if(line1 == 0 && line2 == 0){
-           return check(l1, l2);
+        int A = ccw(l1.x1,l1.y1, l1.x2, l1.y2, l2.x1, l2.y1) * ccw(l1.x1,l1.y1, l1.x2, l1.y2, l2.x2, l2.y2);
+        int B = ccw(l2.x1,l2.y1, l2.x2, l2.y2, l1.x1, l1.y1) * ccw(l2.x1,l2.y1, l2.x2, l2.y2, l1.x2, l1.y2);
+
+        if(A == 0 && B == 0){
+            return check(l1,l2);
         }
-        return line1 <= 0 && line2 <= 0;
+        return A<=0 && B<=0;
     }
 
     static boolean check(Line l1, Line l2){
-        if(Math.max(l1.x1,l1.x2) < Math.min(l2.x1,l2.x2)) return false;
-        if(Math.min(l1.x1,l1.x2) > Math.max(l2.x1,l2.x2)) return false;
-        if(Math.max(l1.y1,l1.y2) < Math.min(l2.y1,l2.y2)) return false;
-        if(Math.min(l1.y1,l1.y2) > Math.max(l2.y1,l2.y2)) return false;
+        if(Math.max(l1.x1, l1.x2) < Math.min(l2.x1, l2.x2)) return false;
+        if(Math.min(l1.x1, l1.x2) > Math.max(l2.x1, l2.x2)) return false;
+        if(Math.max(l1.y1, l1.y2) < Math.min(l2.y1, l2.y2)) return false;
+        if(Math.min(l1.y1, l1.y2) > Math.max(l2.y1, l2.y2)) return false;
         return true;
     }
 
     static int find(int a){
-        if(parent[a] == a) return a;
-        else return parent[a] = find(parent[a]);
+        if(parent[a] == a) return parent[a];
+        return parent[a] = find(parent[a]);
     }
     static void union(int a, int b){
         int rootA = find(a);
         int rootB = find(b);
-
-        if(rootA == rootB) return;   
+        if(rootA == rootB) return;
         parent[rootA] = rootB;
     }
 
