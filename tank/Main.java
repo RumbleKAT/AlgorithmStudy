@@ -44,6 +44,8 @@ class Main{
                 }
             });
 
+
+
             Arrays.sort(yAxisArr,1,N+1,new Comparator<Node>(){
                 @Override
                 public int compare(Node o1, Node o2){
@@ -108,13 +110,13 @@ class SegmentTree{
         return segmentTree[index].value = init(index*2, left, mid) + init(index*2+1,mid+1, right);
     }
 
-    public long sum(int index, int L, int R, int left, int right){
-        if(R < left || L > right) return 0;
-        if(L <= left && right <= R){ 
+    public long sum(int index, int start, int end, int left, int right){
+        if(start > right || end < left) return 0;
+        if(left <= start && end <= right){ 
             return segmentTree[index].value;
         }
-        int mid = (left+right)/2;
-        return segmentTree[index].value = sum(index*2, L, R, left, mid) + sum(index*2+1, L, R, mid+1, right);
+        int mid = (start+end)/2;
+        return sum(index*2, start, mid, left,right) + sum(index*2+1, mid+1, end, left,right);
     }
 
 }
