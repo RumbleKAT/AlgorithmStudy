@@ -44,8 +44,8 @@ class Main{
 
         int past = -1;
         long ans = 0;
-        for(int i =0;i<N*2;i++){
 
+        for(int i =0;i<N*2;i++){
             if(i>0){
                 int dx = arr[i].x-past;
                 ans += dx*seg[1];

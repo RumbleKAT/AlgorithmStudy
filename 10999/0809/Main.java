@@ -55,28 +55,29 @@ class Main{
         return seg[node] = update(index, val, node*2, left, mid) + update(index, val, node*2+1, mid+1, right);
     }
 
-    static void update_lazy(int node, int start, int end){
-       if(lazy[node] == 0) return;
-       seg[node] += lazy[node] * (end-start+1);
-       if(start != end){
-           lazy[node*2] += lazy[node];
-           lazy[node*2+1] += lazy[node];
-       }
-       lazy[node] = 0;
-    }
-    static long update_range(int node, long val, int start, int end, int left, int right){
-        update_lazy(node, start, end);
+    static long update_range(int node,long val, int start, int end, int left, int right){
+        update_lazy(node,start,end);
         if(start > right || end < left) return seg[node];
         if(left <= start && end <= right){
-            seg[node] += val * (end -start+1);
-            if(start != end){
+            seg[node] += val*(end-start+1);
+            if(start!=end){
                 lazy[node*2] += val;
                 lazy[node*2+1] += val;
             }
             return seg[node];
         }
-        int mid = (start + end)/2;
-        return seg[node] = update_range(node*2, val, start, mid, left, right) + update_range(node*2+1, val, mid+1, end, left, right);
+        int mid = (start+end)/2;
+        return seg[node] = update_range(node*2,val,start, mid, left, right) + update_range(node*2+1,val,mid+1,end, left, right);
+    }
+
+    static void update_lazy(int node, int start, int end){
+        if(lazy[node]==0) return;
+        seg[node] += lazy[node] * (end-start+1);
+        if(start != end){
+            lazy[node*2] += lazy[node];
+            lazy[node*2+1] += lazy[node];
+        }
+        lazy[node] = 0;
     }
 
     static long sum(int node, int start, int end, int left, int right){
