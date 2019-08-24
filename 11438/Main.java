@@ -6,16 +6,16 @@ public class Main {
 
     static int N,M;
     static int MAX = 1000001;
-    static int MD = 22;
-    static int[][] p = new int[MAX][MD+1];
+    static int[][] p = new int[MAX][21];
     static int[] d = new int[MAX];
     static boolean [] visited = new boolean[MAX];
      
     static ArrayList<Integer>[] arr;
 
-    public static void main(String[] args) throws NumberFormatException, IOException {
+    public static void main(String[] args) throws Exception{
         System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer token;
         N = Integer.parseInt(br.readLine());
 
@@ -57,8 +57,9 @@ public class Main {
             int a = Integer.parseInt(token.nextToken());
             int b = Integer.parseInt(token.nextToken());
          
-            System.out.println(lca(a,b));
+            bw.write(lca(a,b)+"\n");
         }
+        bw.flush();
 
     }
 
