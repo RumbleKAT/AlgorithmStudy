@@ -29,8 +29,10 @@ class Main{
         
 
         for(int i=1;i<=N;i++){
-            for(int j=1;j<=K;j++){
+            for(int j=1;j<=K;j++){ //한 물품당 전체 가치를 제면서 
                 if(j >= weight[i]){
+                    System.out.println(j + " " +(j-weight[i]) + " " + capacity[i-1][j-weight[i]] + " " + value[i]);
+
                     capacity[i][j] = Math.max(capacity[i-1][j], capacity[i-1][j-weight[i]] + value[i]);
                 }else{
                     capacity[i][j] = capacity[i-1][j];
@@ -38,6 +40,8 @@ class Main{
             }
         }
 
+        //현재 물품의 가치를 뺴고 남는 가치 중에서 가장 큰것의 가치 + 현재 물품의 가치
+        
 
         System.out.println(capacity[N][K]);
 
