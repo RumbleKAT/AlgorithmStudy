@@ -23,19 +23,47 @@ class Main{
             arr[i] = Integer.parseInt(token.nextToken());
         }
 
-        int max = 0;
+        // int max = 0;
 
-        for(int i=0;i<len;i++){
-            dp[i] = arr[i];
-            for(int j=0;j<i;j++){
-                if(arr[i] > arr[j] && dp[i] < dp[j] + arr[i]){
-                    dp[i] = dp[j] + arr[i];
-                }
+        // for(int i=0;i<len;i++){
+        //     dp[i] = arr[i];
+        //     for(int j=0;j<i;j++){
+        //         if(arr[i] > arr[j] && dp[i] < dp[j] + arr[i]){
+        //             dp[i] = dp[j] + arr[i];
+        //         }
+        //     }
+        //     max = Math.max(max, dp[i]);
+        // }
+
+        // System.out.println(max); 
+
+        dp[0] = arr[0];
+
+        int idx = 0;
+        for(int i=1;i<len;i++){
+            if(dp[idx] < arr[i]){
+                dp[++idx] = arr[i];
+            }else{
+                // int ii = lowerbound(idx,arr[i]);
+                dp[lowerbound(idx,arr[i])] = arr[i];
             }
-            max = Math.max(max, dp[i]);
+            // System.out.println(Arrays.toString(dp));
         }
 
-        System.out.println(max); 
+        System.out.println(Arrays.toString(dp));
+    }
 
+    static int lowerbound(int right, int key){
+        int left = 0;
+        while(left < right){
+            int mid =(left+right)/2;
+            
+            if(dp[mid] >= key){
+                right = mid;
+            }else{
+                left = mid+1;
+            }
+        }
+        return right;
     }
 }

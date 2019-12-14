@@ -27,9 +27,9 @@ class Main{
             }
 
             long result = Integer.MIN_VALUE;
-            // for(int i=1;i<=N;i++){
-            long p1 = 0;
-            long p2 = 0;
+
+            long p1 = 0; //0부터 N까지의 합 
+            long p2 = 0; //0부터 K까지의 합 중에 최소값
 
             for(int j=1;j<=N;j++){
                 p1 += arr[j];
@@ -41,6 +41,5 @@ class Main{
 
 
         }
-
     }
 }
