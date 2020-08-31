@@ -88,10 +88,11 @@ public class Main {
         while(!que.isEmpty()){
             Node cur = que.poll();
 
+            depth[cur.idx] = cur.depth;
+
             for(int next : arr[cur.idx]){
                 if(!visited[next]){
                     visited[next] = true;
-                    depth[next] = cur.depth;
                     parent[next][0] = cur.idx;
                     que.add(new Node(next,cur.depth+1));
                 }
