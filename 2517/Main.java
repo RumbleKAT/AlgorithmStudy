@@ -9,6 +9,7 @@ class Main{
     static int N;
 
     public static void main(String [] args) throws Exception{
+        System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer token = new StringTokenizer(br.readLine());
@@ -39,11 +40,10 @@ class Main{
 
         System.out.println(Arrays.toString(order));
 
-
 		StringBuilder ansSB = new StringBuilder();
 
         for(int i =1;i<=N;i++){
-            ansSB.append(i - query(1, 0, order[i], 1, N)).append("\n");
+            ansSB.append(i-query(1, 0, order[i], 1, N)).append("\n");
             update(1, order[i], 1, N);
         }
         System.out.println(ansSB);

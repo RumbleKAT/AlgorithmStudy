@@ -44,27 +44,27 @@ class Main{
 
     }
     static long largest (int left, int right){
-        if(left == right) return arr[left];
-        int mid = (left+right)/2;
-        long ret = Math.max(largest(left,mid),largest(mid+1,right));
-        
-        int lo = mid;
-        int hi = mid+1;
-        long height = Math.min(arr[lo],arr[hi]);
+       if(left == right) return arr[left];
+       int mid = (left+right)/2;
+       long ret = Math.max(largest(left,mid),largest(mid+1,right));
+    
+       int lo = mid;
+       int hi = mid+1;
+       long height = Math.min(arr[lo],arr[hi]);
+       ret = Math.max(ret, height*2);
 
-        ret = Math.max(ret,height*2);
-
-        while(left < lo || hi < right){
-            if(hi < right && (lo == left || arr[lo-1]<arr[hi+1])){
+       while(left < lo || hi < right){
+            if(hi < right && (left == lo || arr[lo-1] < arr[hi+1])){
                 hi++;
-                height = Math.min(height,arr[hi]);
+                height = Math.min(height, arr[hi]);
             }else{
                 lo--;
-                height = Math.min(height,arr[lo]);
+                height = Math.min(height, arr[lo]);
             }
-            ret = Math.max(ret, height * (hi-lo+1));
-        }
-        return ret;
+            ret = Math.max(ret, (hi-lo+1)*height);
+       }
+
+       return ret;
     }
 
     static long update(int node, int index, long value, int left, int right){
