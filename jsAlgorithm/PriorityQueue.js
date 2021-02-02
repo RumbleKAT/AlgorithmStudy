@@ -3,6 +3,10 @@ export default class PriorityQueue{
         this.store = [];
     }
 
+    isEmpty(){
+        return this.store.length === 0 ? true : false;
+    }
+
     enqueue(item){
         this.store.push(item);
     }
