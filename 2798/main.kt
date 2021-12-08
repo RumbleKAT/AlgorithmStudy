@@ -20,7 +20,12 @@ fun main(args: Array<String>) = with(
     for(i in 0 until N){
         array[i] = token.nextToken().toInt()
     }
+<<<<<<< HEAD
     var max:Int = 0
+=======
+    var min:Int = Int.MAX_VALUE
+    var ans:Int = 0
+>>>>>>> bb811a243e8d111a75ce9d247e2ed81a3ce063a7
     for(i in 0 until N){
         for(j in i+1 until N){
             for(k in j+1 until N){
