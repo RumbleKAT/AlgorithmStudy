@@ -8,7 +8,7 @@ class Main{
     static int [] arr;
 
     public static void main(String [] args) throws Exception{
-        //System.setIn(new FileInputStream("./sample.txt"));
+        System.setIn(new FileInputStream("./sample.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer token = new StringTokenizer(br.readLine());
         N = Integer.parseInt(token.nextToken());
@@ -24,7 +24,7 @@ class Main{
         long sum = arr[s];
         long max = Integer.MIN_VALUE;
         while(true){
-            if(s+K > N || e >= N) break;
+            if(e >= N || s>=N) break;
             if((e - s)+1 < K){
                 sum += arr[++e];
             }
