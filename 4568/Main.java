@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 public class Main {
+
     static LinkedHashMap<Character, Boolean> cache = new LinkedHashMap<>();
     static int capacity = 0;
 
