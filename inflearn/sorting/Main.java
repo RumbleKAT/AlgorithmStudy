@@ -1,34 +1,32 @@
 import java.util.*;
+
 class Main {
-	public int solution(int[] nums, int k){
+    public int solution(int[] score, int k){
 		int answer = 0;
-	
-        int [] arrDesc = Arrays.stream(nums)
-                            .boxed()
-                            .sorted(Collections.reverseOrder())
-                            .mapToInt(Integer::intValue)
-                            .toArray();
-        PriorityQueue<Integer> diff =  new PriorityQueue<Integer>(Collections.reverseOrder());
-        int sum = 0;
-        for(int i= 0;i<arrDesc.length;i+=2){
-            diff.add(arrDesc[i] - arrDesc[i+1]);
-            sum += arrDesc[i+1];
+        
+        Arrays.sort(score);
+    
+        for(int i=0;i<score.length;i++){
+            if(i+k-1 >= score.length) break;
+            int lastIdx = i + k - 1;
+            int firstIdx = i;
+            if(score[lastIdx] - score[firstIdx] <= 10){
+                long sum = 0;
+                for(int j=firstIdx;j<=lastIdx;j++){
+                    sum += score[j];
+                }
+                return (int)(sum/k); //sliding window
+            }
         }
 
-        for(int i=0;i<k;i++){
-            int cur = diff.poll();
-            sum += cur;
-        }
-        answer = sum;
 		return answer;
 	}
 
 	public static void main(String[] args){
 		Main T = new Main();
-		System.out.println(T.solution(new int[]{7, 8, 5, 12, 3, 1, 3, 1, 1, 12}, 2));
-		System.out.println(T.solution(new int[]{8, 2, 12, 12, 12, 12, 2, 2}, 2));
-		System.out.println(T.solution(new int[]{3, 7, 12, 3, 3, 5, 7, 8, 9, 11, 23, 4, 6, 7}, 3));
-		System.out.println(T.solution(new int[]{12, 34, 56, 23, 22, 34, 55, 45, 24, 23, 45, 55, 55, 23, 11, 12, 23, 12}, 3));
-		System.out.println(T.solution(new int[]{14, 15, 20, 11, 10, 20, 20, 12, 9, 22, 27, 25, 30, 19}, 3));
+		System.out.println(T.solution(new int[]{99, 97, 80, 91, 85, 95, 92}, 3));
+		System.out.println(T.solution(new int[]{92, 90, 77, 91, 70, 83, 89, 76, 95, 92}, 4));
+		System.out.println(T.solution(new int[]{77, 88, 78, 80, 78, 99, 98, 92, 93, 89}, 5));
+		System.out.println(T.solution(new int[]{88, 99, 91, 89, 90, 72, 75, 94, 95, 100}, 5));
 	}
 }
