@@ -1,1 +1,0 @@
-                arr[level] = i;

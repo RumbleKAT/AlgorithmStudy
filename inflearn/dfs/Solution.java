@@ -1,4 +1,5 @@
 import java.util.*;
+
 class Solution {
     static int [] arr;
     static boolean [] visited;
@@ -22,15 +23,22 @@ class Solution {
 		return answer;
 	}
     public void dfs(int idx, int level){
-        if(level == size+1){
+        if(level == slevel){
             int wSum = 0;
             int bSum = 0;
-            // pick up the 3 cans
-            for(int i=1;i<=cCans.length/2;i++){
-                wSum += cCans[arr[i]][0];
+            ArrayList<Integer> A = new ArrayList<>();
+            ArrayList<Integer> B = new ArrayList<>();
+            for(int i=0;i<size;i++){
+                if(visited[i]){
+                    A.add(i);
+                }else{
+                    B.add(i);
+                }
             }
-            for(int i=cCans.length/2+1;i<=cCans.length;i++){
-                bSum += cCans[arr[i]][1];
+            // pick up the 3 cans
+            for(int i=0;i<cCans.length/2;i++){
+                wSum += cCans[A.get(i)][0];
+                bSum += cCans[B.get(i)][1];
             }
             min= Math.min(Math.abs(wSum-bSum),min);
             return;
